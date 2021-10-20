@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "name": "Dart (bin\\newtest.dart)",
+            "type": "dart",
+            "request": "launch",
+            "program": "bin\\newtest.dart",
+            "console": "terminal"
+        }
+    ]
+}
