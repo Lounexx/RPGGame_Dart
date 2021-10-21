@@ -38,4 +38,12 @@ class CombatSystem {
       }
     } while (verif == false);
   }
+
+  void fight() {
+    while (_player.isAlive && _opponent.isAlive) {
+      selectAction();
+      _opponent.attack(_player);
+    }
+    print("fight done");
+  }
 }

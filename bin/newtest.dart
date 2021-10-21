@@ -8,8 +8,6 @@ import 'utils/combat_system.dart';
 void main(List<String> arguments) {
   Joueur joueur = Joueur.start("brolrb", Classe.Warrior());
   Joueur joueur2 = Joueur.start("uwu", Classe.Rogue());
-  CombatSystem combat = CombatSystem(joueur, joueur2);
-  combat.selectAction();
 }
 
 void giveXp(Joueur player, double xp) {
