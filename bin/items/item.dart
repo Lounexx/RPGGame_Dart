@@ -1,12 +1,12 @@
 abstract class Item {
-  String _name;
+  String? name;
   int _levelRequirement;
 
-  Item(this._name, this._levelRequirement);
+  Item(this._levelRequirement, {this.name});
 
-  String get getName => this._name;
+  String? get getName => this.name;
 
-  set setName(String name) => this._name = name;
+  set setName(String name) => this.name = name;
 
   int get levelRequirement => this._levelRequirement;
 

@@ -4,12 +4,13 @@ import 'utils/equip_conditioner.dart';
 abstract class Entite {
   String _name;
   int _health;
+  int _maxHealth;
   int _damage;
   Weapon? weapon;
   int _level;
   bool _isAlive;
 
-  Entite(this._name, this._health, this._damage, this._level,
+  Entite(this._name, this._health, this._maxHealth, this._damage, this._level,
       [this._isAlive = true]);
 
   String get name => this._name;
@@ -19,6 +20,10 @@ abstract class Entite {
   get health => this._health;
 
   set health(value) => this._health = value;
+
+  int get maxHealth => this._maxHealth;
+
+  set maxHealth(int value) => this._maxHealth = value;
 
   get damage => this._damage;
 

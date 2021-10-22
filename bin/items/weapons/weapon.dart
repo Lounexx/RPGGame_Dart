@@ -4,9 +4,8 @@ abstract class Weapon extends Item {
   int _damage;
   double _critMultiplier;
 
-  Weapon(this._damage, this._critMultiplier, int levelRequirement,
-      {String name = ""})
-      : super(name, levelRequirement);
+  Weapon(this._damage, this._critMultiplier, int levelRequirement)
+      : super(levelRequirement);
 
   get damage => this._damage;
 

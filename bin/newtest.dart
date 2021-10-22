@@ -1,13 +1,19 @@
 import 'dart:io';
 
 import 'classes/classe.dart';
+import 'enemies/wolf.dart';
 import 'joueur.dart';
 import 'items/weapons/sword.dart';
 import 'utils/combat_system.dart';
 
 void main(List<String> arguments) {
+  List<Wolf> armyOfWolves = List.filled(5, Wolf(1));
   Joueur joueur = Joueur.start("brolrb", Classe.Warrior());
-  Joueur joueur2 = Joueur.start("uwu", Classe.Rogue());
+  CombatSystem combat = CombatSystem(joueur, armyOfWolves[0]);
+  for (Wolf aWolf in armyOfWolves) {
+    combat.opponent = aWolf;
+    combat.fight();
+  }
 }
 
 void giveXp(Joueur player, double xp) {
@@ -25,12 +31,5 @@ void giveXp(Joueur player, double xp) {
         "xp/" +
         player.xpCap.toString() +
         "xp");
-  }
-
-  int chooseAction(Joueur player) {
-    print("Choose an action to perform");
-    String? input = stdin.readLineSync();
-
-    return 1;
   }
 }

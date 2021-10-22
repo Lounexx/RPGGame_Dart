@@ -19,7 +19,7 @@ class CombatSystem {
 
   set player(Joueur value) => this._player = value;
 
-  get opponent => this._opponent;
+  Entite get opponent => this._opponent;
 
   set opponent(value) => this._opponent = value;
 

@@ -1,5 +1,7 @@
 // ignore_for_file: unnecessary_this
 
+import 'dart:math';
+
 import 'classes/classe.dart';
 import 'entite.dart';
 import 'items/weapons/fists.dart';
@@ -11,12 +13,14 @@ class Joueur extends Entite {
 
   Joueur.start(String name, this._classe,
       [int health = 100,
+      int maxHealth = 100,
       int damage = 10,
       int level = 1,
       this._xp = 0,
       this._xpCap = 100.0])
-      : super(name, health, damage, level) {
-    super.health = health + _classe.stamina;
+      : super(name, health, maxHealth, damage, level) {
+    super.maxHealth = super.health + _classe.stamina;
+    super.health = super.maxHealth;
     super.damage = damage + _classe.strength;
     super.weapon = Fists(super.damage);
   }
@@ -58,6 +62,10 @@ class Joueur extends Entite {
     _classe.stamina = _classe.stamina + _classe.staminaByLevel;
     _classe.agility = _classe.agility + _classe.agilityByLevel;
     _classe.intelligence = _classe.intelligence + _classe.intelligenceByLevel;
+
+    //Max hp après augmentation de niveau
+    super.maxHealth += classe.staminaByLevel;
+    super.health = super.maxHealth;
 
     //Remet à zero barre d'xp avec changement de xpCap
     _xp = _xp - _xpCap;

@@ -49,15 +49,15 @@ class Classe {
 
   set strength(int value) => this._strength = value;
 
-  get stamina => this._stamina;
+  int get stamina => this._stamina;
 
   set stamina(value) => this._stamina = value;
 
-  get agility => this._agility;
+  int get agility => this._agility;
 
   set agility(value) => this._agility = value;
 
-  get intelligence => this._intelligence;
+  int get intelligence => this._intelligence;
 
   set intelligence(value) => this._intelligence = value;
 
@@ -65,15 +65,15 @@ class Classe {
 
   set strengthByLevel(int value) => this._strengthByLevel = value;
 
-  get staminaByLevel => this._staminaByLevel;
+  int get staminaByLevel => this._staminaByLevel;
 
   set staminaByLevel(value) => this._staminaByLevel = value;
 
-  get agilityByLevel => this._agilityByLevel;
+  int get agilityByLevel => this._agilityByLevel;
 
   set agilityByLevel(value) => this._agilityByLevel = value;
 
-  get intelligenceByLevel => this._intelligenceByLevel;
+  int get intelligenceByLevel => this._intelligenceByLevel;
 
   set intelligenceByLevel(value) => this._intelligenceByLevel = value;
 }
