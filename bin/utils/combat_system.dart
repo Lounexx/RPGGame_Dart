@@ -21,18 +21,21 @@ class CombatSystem {
 
   Entite get opponent => this._opponent;
 
-  set opponent(value) => this._opponent = value;
+  set opponent(Entite value) => this._opponent = value;
 
   void selectAction() {
-    print("Choose an action");
     bool verif = false;
     do {
+      print("Choose an action");
       String? input = stdin.readLineSync();
       if (input == "attack") {
         player.attack(opponent);
         verif = true;
       } else if (input == "?") {
         print("Commandes disponibles:\n" + "- attack");
+      } else if (input == "inventaire") {
+        print("Voici votre inventaire");
+        _player.inventory.displayInventory();
       } else {
         print("Mauvaise action, taper ? pour connaître toutes les commandes");
       }

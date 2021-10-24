@@ -1,4 +1,5 @@
 import '../item.dart';
+import '../weapons/weapon.dart';
 
 class Inventory {
   List<Item?> _inventory = List.filled(10, null);
@@ -10,12 +11,21 @@ class Inventory {
   set inventory(value) => this._inventory = value;
 
   void addItem(Item item) {
-    _inventory.add(item);
+    for (Item? anitem in _inventory) {
+      if (anitem == null) {
+        int index = _inventory.indexOf(anitem);
+        _inventory[index] = item;
+        print(item.name! + " ajouté à l'inventaire à la place $index");
+        break;
+      }
+    }
   }
 
   void displayInventory() {
     for (Item? item in _inventory) {
-      print(item!.name);
+      if (item != null) {
+        print(item.name);
+      }
     }
   }
 }

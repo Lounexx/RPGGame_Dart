@@ -2,18 +2,23 @@ import 'dart:io';
 
 import 'classes/classe.dart';
 import 'enemies/wolf.dart';
+import 'items/weapons/weapon.dart';
 import 'joueur.dart';
 import 'items/weapons/sword.dart';
 import 'utils/combat_system.dart';
+import 'utils/item_displayer.dart';
 
 void main(List<String> arguments) {
-  List<Wolf> armyOfWolves = List.filled(5, Wolf(1));
+  List<Wolf> armyOfWolves = List.empty(growable: true);
+  armyOfWolves.add(new Wolf(1));
+  armyOfWolves.add(new Wolf(1));
+  armyOfWolves.add(new Wolf(1));
   Joueur joueur = Joueur.start("brolrb", Classe.Warrior());
-  CombatSystem combat = CombatSystem(joueur, armyOfWolves[0]);
-  for (Wolf aWolf in armyOfWolves) {
-    combat.opponent = aWolf;
-    combat.fight();
-  }
+  joueur.inventory.addItem(Sword(10, 1.25, 1));
+  List<Weapon> weapons = List.empty(growable: true);
+  weapons.add(Sword(10, 2.0, 10));
+  weapons.add(Sword(25, 2.2, 10));
+  ItemDisplayer.displayAllWeapons(weapons);
 }
 
 void giveXp(Joueur player, double xp) {

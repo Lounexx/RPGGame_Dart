@@ -4,25 +4,30 @@ import 'dart:math';
 
 import 'classes/classe.dart';
 import 'entite.dart';
+import 'items/player_bound_items/inventory.dart';
 import 'items/weapons/fists.dart';
 
 class Joueur extends Entite {
   Classe _classe;
   double _xp;
   double _xpCap;
+  Inventory? _inventory;
 
-  Joueur.start(String name, this._classe,
-      [int health = 100,
-      int maxHealth = 100,
-      int damage = 10,
-      int level = 1,
-      this._xp = 0,
-      this._xpCap = 100.0])
-      : super(name, health, maxHealth, damage, level) {
+  Joueur.start(
+    String name,
+    this._classe, [
+    int health = 100,
+    int maxHealth = 100,
+    int damage = 10,
+    int level = 1,
+    this._xp = 0,
+    this._xpCap = 100.0,
+  ]) : super(name, health, maxHealth, damage, level) {
     super.maxHealth = super.health + _classe.stamina;
     super.health = super.maxHealth;
     super.damage = damage + _classe.strength;
     super.weapon = Fists(super.damage);
+    this._inventory = Inventory();
   }
 
   Classe get classe => this._classe;
@@ -36,6 +41,10 @@ class Joueur extends Entite {
   double get xpCap => this._xpCap;
 
   set xpCap(double value) => this._xpCap = value;
+
+  Inventory get inventory => this._inventory!;
+
+  set inventory(Inventory value) => this._inventory = value;
 
   @override
   void attack(Entite entite) {

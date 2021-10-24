@@ -9,5 +9,6 @@ class Wolf extends Entite {
     super.health = super.maxHealth;
     super.damage = 10 + 8 * super.level;
     super.weapon = Fists(super.damage);
+    super.isAlive = true;
   }
 }

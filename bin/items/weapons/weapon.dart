@@ -14,4 +14,16 @@ abstract class Weapon extends Item {
   get critMultiplier => this._critMultiplier;
 
   set critMultiplier(value) => this._critMultiplier = value;
+
+  @override
+  String toString() {
+    String description = super.name! +
+        " | " +
+        super.levelRequirement.toString() +
+        " | " +
+        damage.toString() +
+        " | " +
+        critMultiplier.toString();
+    return description;
+  }
 }
