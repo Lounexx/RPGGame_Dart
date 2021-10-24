@@ -1,9 +1,10 @@
 import 'dart:io';
 
+import '../items/item.dart';
 import '../items/weapons/weapon.dart';
 
 class ItemDisplayer {
-  static void displayAllWeapons(List<Weapon> weapons) {
+  static void displayAllWeapons(List<Item> items) {
     List<String> columnTable = [
       "Nom de l'arme",
       "Niveau requis",
@@ -15,17 +16,18 @@ class ItemDisplayer {
       allColumns += column + "|";
     }
     print(allColumns);
-    for (Weapon weapon in weapons) {
-      String weaponLine = "";
-      weaponLine += centerAword(columnTable[0], weapon.name!);
-      weaponLine +=
-          centerAword(columnTable[1], weapon.levelRequirement.toString());
-      weaponLine += centerAword(columnTable[2], weapon.damage.toString());
-      weaponLine +=
-          centerAword(columnTable[3], weapon.critMultiplier.toString());
-      print(weaponLine);
-      String stopLine = "-" * weaponLine.length;
-      print(stopLine);
+    print("-" * allColumns.length);
+    for (Item item in items) {
+      String itemLine = "";
+      if (item is Weapon) {
+        itemLine += centerAword(columnTable[0], item.name!);
+        itemLine +=
+            centerAword(columnTable[1], item.levelRequirement.toString());
+        itemLine += centerAword(columnTable[2], item.damage.toString());
+        itemLine += centerAword(columnTable[3], item.critMultiplier.toString());
+      }
+      print(itemLine);
+      print("-" * itemLine.length);
     }
   }
 

@@ -1,3 +1,4 @@
+import '../../utils/item_displayer.dart';
 import '../item.dart';
 import '../weapons/weapon.dart';
 
@@ -22,10 +23,22 @@ class Inventory {
   }
 
   void displayInventory() {
+    List<Weapon> weapons = List.empty(growable: true);
     for (Item? item in _inventory) {
-      if (item != null) {
-        print(item.name);
+      if (item != null && item is Weapon) {
+        weapons.add(item);
       }
     }
+    ItemDisplayer.displayAllWeapons(weapons);
+  }
+
+  List<Item> searchItem(String itemName) {
+    List<Item> items = List.empty(growable: true);
+    for (Item? item in _inventory) {
+      if (item != null && item.name!.toLowerCase() == itemName) {
+        items.add(item);
+      }
+    }
+    return items;
   }
 }

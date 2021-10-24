@@ -2,7 +2,7 @@ abstract class Item {
   String? name;
   int _levelRequirement;
 
-  Item(this._levelRequirement, {this.name});
+  Item(this._levelRequirement);
 
   String? get getName => this.name;
 
