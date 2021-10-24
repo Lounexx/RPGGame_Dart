@@ -16,8 +16,6 @@ void main(List<String> arguments) {
   Joueur joueur = Joueur.start("brolrb", Classe.Warrior());
   joueur.inventory.addItem(Sword(10, 1.25, 1));
   List<Weapon> weapons = List.empty(growable: true);
-  weapons.add(Sword(10, 2.0, 10));
-  weapons.add(Sword(25, 2.2, 10));
   ItemDisplayer.displayAllWeapons(weapons);
 }
 
