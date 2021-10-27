@@ -4,8 +4,11 @@ import 'dart:math';
 
 import 'classes/classe.dart';
 import 'entite.dart';
+import 'items/item.dart';
 import 'items/player_bound_items/inventory.dart';
 import 'items/weapons/fists.dart';
+import 'utils/drop_item_system.dart';
+import 'utils/item_displayer.dart';
 
 class Joueur extends Entite {
   Classe _classe;

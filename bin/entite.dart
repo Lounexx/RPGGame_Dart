@@ -1,5 +1,6 @@
 import 'items/weapons/weapon.dart';
 import 'utils/equip_conditioner.dart';
+import 'utils/loot_table.dart';
 
 abstract class Entite {
   String _name;
@@ -9,6 +10,7 @@ abstract class Entite {
   Weapon? weapon;
   int _level;
   bool _isAlive;
+  LootTable? lootTable;
 
   Entite(this._name, this._health, this._maxHealth, this._damage, this._level,
       [this._isAlive = true]);
@@ -40,6 +42,10 @@ abstract class Entite {
   bool get isAlive => this._isAlive;
 
   set isAlive(bool value) => this._isAlive = value;
+
+  get getLootTable => this.lootTable;
+
+  set setLootTable(lootTable) => this.lootTable = lootTable;
 
   void attack(Entite entite) {
     entite.health = entite.health - weapon!.damage;

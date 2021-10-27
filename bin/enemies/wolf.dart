@@ -1,5 +1,6 @@
 import '../entite.dart';
 import '../items/weapons/fists.dart';
+import '../utils/loot_table.dart';
 
 class Wolf extends Entite {
   Wolf(int level) : super('', 0, 0, 0, 0) {
@@ -10,5 +11,6 @@ class Wolf extends Entite {
     super.damage = 10 + 8 * super.level;
     super.weapon = Fists(super.damage);
     super.isAlive = true;
+    super.lootTable = LootTable.Wolf();
   }
 }

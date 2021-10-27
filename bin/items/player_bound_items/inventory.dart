@@ -12,11 +12,12 @@ class Inventory {
   set inventory(value) => this._inventory = value;
 
   void addItem(Item item) {
-    for (Item? anitem in _inventory) {
-      if (anitem == null) {
-        int index = _inventory.indexOf(anitem);
+    for (Item? anItem in _inventory) {
+      if (anItem == null) {
+        int index = _inventory.indexOf(anItem);
         _inventory[index] = item;
-        print(item.name! + " ajouté à l'inventaire à la place $index");
+        int slot = index + 1;
+        print(item.name! + " ajouté à l'inventaire à la place $slot");
         break;
       }
     }

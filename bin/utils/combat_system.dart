@@ -4,6 +4,7 @@ import '../entite.dart';
 import '../items/item.dart';
 import '../items/weapons/weapon.dart';
 import '../joueur.dart';
+import 'drop_item_system.dart';
 import 'item_displayer.dart';
 
 class CombatSystem {
@@ -34,6 +35,8 @@ class CombatSystem {
       if (input == "attack") {
         player.attack(opponent);
         verif = true;
+      } else if (input == "inventory") {
+        selectInventoryAction();
       } else if (input == "?") {
         print("Commandes disponibles:\n" + "- attack");
       } else if (input == "inventaire") {
@@ -49,6 +52,7 @@ class CombatSystem {
 
   void selectInventoryAction() {
     bool verif = false;
+
     do {
       print("Que voulez-vous faire");
       String? input = stdin.readLineSync();
@@ -66,7 +70,6 @@ class CombatSystem {
               verif = true;
             }
           } else {
-            ItemDisplayer.displayAllWeapons(searchItem);
             print("Lequel voulez-vous choisir");
 
             // Choix de l'item suivant les différentes options
@@ -89,11 +92,46 @@ class CombatSystem {
     } while (!verif);
   }
 
+  void selectLootAction(List<Item> droppedItems) {
+    bool verif = false;
+    do {
+      print("Que voulez-vous faire?");
+      String? input = stdin.readLineSync();
+      if (input! == "takeall") {
+        for (Item item in droppedItems) {
+          _player.inventory.addItem(item);
+        }
+        verif = true;
+      } else if (input == "take") {
+        print("Quel item voulez-vous prendre?");
+        try {
+          int? inputChoice = int.parse(stdin.readLineSync().toString()) - 1;
+          _player.inventory.addItem(droppedItems[inputChoice]);
+          verif = true;
+        } catch (e) {
+          print("Erreur dans le choix");
+        }
+      } else if (input == "?") {
+        print("Commandes disponibles:\n" + "- takeall\n" + "-take");
+      } else {
+        print("Mauvaise action, taper ? pour connaître toutes les commandes");
+      }
+    } while (!verif);
+  }
+
   void fight() {
     while (_player.isAlive && _opponent.isAlive) {
       selectAction();
       _opponent.attack(_player);
     }
-    print("fight done");
+    if (!_opponent.isAlive) {
+      List<Item> droppedItems =
+          DropItemSystem.dropItemOnDeath(_opponent.lootTable!);
+      if (droppedItems.isNotEmpty) {
+        print("Inventaire de " + _opponent.name);
+        ItemDisplayer.displayAllWeapons(droppedItems);
+        selectLootAction(droppedItems);
+      }
+    }
   }
 }
