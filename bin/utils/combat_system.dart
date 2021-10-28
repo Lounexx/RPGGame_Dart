@@ -52,7 +52,6 @@ class CombatSystem {
 
   void selectInventoryAction() {
     bool verif = false;
-
     do {
       print("Que voulez-vous faire");
       String? input = stdin.readLineSync();

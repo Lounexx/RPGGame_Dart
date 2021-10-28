@@ -12,14 +12,19 @@ class Inventory {
   set inventory(value) => this._inventory = value;
 
   void addItem(Item item) {
+    bool isFilled = true;
     for (Item? anItem in _inventory) {
       if (anItem == null) {
         int index = _inventory.indexOf(anItem);
         _inventory[index] = item;
         int slot = index + 1;
         print(item.name! + " ajouté à l'inventaire à la place $slot");
+        isFilled = false;
         break;
       }
+    }
+    if (isFilled) {
+      print("Inventaire plein");
     }
   }
 
