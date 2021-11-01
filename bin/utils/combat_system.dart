@@ -62,27 +62,19 @@ class CombatSystem {
         List<Item> searchItem = player.inventory.searchItem(input);
         // Si la liste a trouvé un ou des objets
         if (searchItem.isNotEmpty) {
-          // S'il n'existe qu'un objet
-          if (searchItem.length == 1) {
-            if (searchItem[0] is Weapon) {
-              _player.equipWeapon(searchItem[0] as Weapon);
-              verif = true;
-            }
-          } else {
-            print("Lequel voulez-vous choisir");
-
-            // Choix de l'item suivant les différentes options
-            try {
-              int? inputChoice = int.parse(stdin.readLineSync().toString());
-              _player.equipWeapon(searchItem[inputChoice] as Weapon);
-              verif = true;
-            } catch (e) {
-              print("Erreur dans le choix");
-            }
+          print("Lequel voulez-vous choisir");
+          // Choix de l'item suivant les différentes options
+          try {
+            int? inputChoice = int.parse(stdin.readLineSync().toString());
+            _player.equipWeapon(searchItem[inputChoice] as Weapon);
+            verif = true;
+          } catch (e) {
+            print("Erreur dans le choix");
           }
         } else {
           print("Pas d'objet portant ce nom");
         }
+      } else if (input == "consume") {
       } else if (input == "?") {
         print("Commandes disponibles:\n" + "- equip");
       } else {
@@ -128,7 +120,7 @@ class CombatSystem {
           DropItemSystem.dropItemOnDeath(_opponent.lootTable!);
       if (droppedItems.isNotEmpty) {
         print("Inventaire de " + _opponent.name);
-        ItemDisplayer.displayAllWeapons(droppedItems);
+
         selectLootAction(droppedItems);
       }
     }
