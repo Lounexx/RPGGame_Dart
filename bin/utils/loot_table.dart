@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import '../items/consummables/health_potion.dart';
 import '../items/item.dart';
 import '../items/weapons/hammer.dart';
 import '../items/weapons/sword.dart';
@@ -11,6 +12,7 @@ class LootTable {
   LootTable.Wolf() {
     _addItemToLootTable(Sword(10, 1.25, 1), 0.5);
     _addItemToLootTable(Hammer(100, 1.75, 1), 0.1);
+    _addItemToLootTable(HealthPotion.standard(), 0.4);
   }
 
   List<Item> get items => this._items;

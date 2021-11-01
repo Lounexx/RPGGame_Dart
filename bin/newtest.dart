@@ -3,6 +3,7 @@ import 'dart:io';
 import 'classes/classe.dart';
 import 'enemies/wolf.dart';
 import 'items/consummables/health_potion.dart';
+import 'items/consummables/potion.dart';
 import 'items/item.dart';
 import 'items/weapons/hammer.dart';
 import 'items/weapons/weapon.dart';
@@ -12,24 +13,19 @@ import 'utils/combat_system.dart';
 import 'utils/item_displayer.dart';
 
 void main(List<String> arguments) {
-  List<Item> items = List.empty(growable: true);
-  items.add(Hammer(10, 1.2, 1));
-  items.add(Sword(10, 1.2, 1));
-  items.add(Hammer(10, 1.2, 1));
-  items.add(Sword(10, 1.2, 1));
-  items.add(Hammer(10, 1.2, 1));
-  items.add(Sword(10, 1.2, 1));
-  items.add(Hammer(10, 1.2, 1));
   Joueur joueur = Joueur.start("davy", Classe.Warrior());
+  joueur.inventory.addItem(HealthPotion.exilir());
+  joueur.inventory.addItem(HealthPotion.standard());
   joueur.inventory.addItem(Hammer(10, 1.2, 10));
-  joueur.inventory.addItem(Hammer(100, 1.2, 10));
-  joueur.inventory.addItem(Hammer(1000, 1.2, 10));
-  List<Weapon> weapons = List.empty(growable: true);
-  weapons.add(Hammer(1000, 1.2, 1000));
-  weapons.add(Hammer(105640, 1.2, 15450));
-  weapons.add(Hammer(100, 1.2, 10));
-  weapons.add(Hammer(10, 1.2, 10));
-  ItemDisplayer.displayAllWeapons(weapons);
+  joueur.inventory.addItem(HealthPotion.exilir());
+  joueur.inventory.addItem(HealthPotion.exilir());
+  joueur.inventory.addItem(Sword(100, 1.0, 1));
+  Wolf wolf = Wolf(3);
+  CombatSystem combat = CombatSystem(joueur, wolf);
+  combat.fight();
+  Wolf newWolf = Wolf(6);
+  combat.opponent = newWolf;
+  combat.fight();
 }
 
 void giveXp(Joueur player, double xp) {

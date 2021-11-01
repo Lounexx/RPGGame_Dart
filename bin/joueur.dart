@@ -30,7 +30,7 @@ class Joueur extends Entite {
     super.health = super.maxHealth;
     super.damage = damage + _classe.strength;
     super.weapon = Fists(super.damage);
-    this._inventory = Inventory();
+    this._inventory = Inventory.player();
   }
 
   Classe get classe => this._classe;

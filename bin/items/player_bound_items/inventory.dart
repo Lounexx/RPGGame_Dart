@@ -3,9 +3,15 @@ import '../item.dart';
 import '../weapons/weapon.dart';
 
 class Inventory {
-  List<Item?> _inventory = List.filled(10, null);
+  late List<Item?> _inventory;
 
-  Inventory();
+  Inventory.player() {
+    _inventory = List.filled(10, null);
+  }
+
+  Inventory.onDeath() {
+    _inventory = List.empty(growable: true);
+  }
 
   get inventory => this._inventory;
 
@@ -26,16 +32,6 @@ class Inventory {
     if (isFilled) {
       print("Inventaire plein");
     }
-  }
-
-  void displayInventory() {
-    List<Weapon> weapons = List.empty(growable: true);
-    for (Item? item in _inventory) {
-      if (item != null && item is Weapon) {
-        weapons.add(item);
-      }
-    }
-    ItemDisplayer.displayAllWeapons(weapons);
   }
 
   List<Item> searchItem(String itemName) {

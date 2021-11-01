@@ -1,16 +1,17 @@
 import 'dart:math';
 
 import '../items/item.dart';
+import '../items/player_bound_items/inventory.dart';
 import 'loot_table.dart';
 
 class DropItemSystem {
-  static List<Item> dropItemOnDeath(LootTable lootTable) {
-    List<Item> droppedItems = List.empty(growable: true);
+  static Inventory dropItemOnDeath(LootTable lootTable) {
+    Inventory droppedItems = Inventory.onDeath();
     for (Item item in lootTable.items) {
       int indexOfItem = lootTable.items.indexOf(item);
       double dropRateItem = lootTable.dropRates.elementAt(indexOfItem);
       if (isDropped(dropRateItem)) {
-        droppedItems.add(item);
+        droppedItems.inventory.add(item);
       }
     }
     return droppedItems;

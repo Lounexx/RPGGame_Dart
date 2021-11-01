@@ -4,9 +4,19 @@ import '../items/consummables/potion.dart';
 import '../items/item.dart';
 import '../items/player_bound_items/inventory.dart';
 import '../items/weapons/weapon.dart';
+import 'item_sorter.dart';
 
 class ItemDisplayer {
-  static void displayInventory(Inventory inventory) {}
+  static void displayInventory(Inventory inventory) {
+    List<Weapon> weapons = ItemSort.getAllWeapons(inventory);
+    List<Potion> potions = ItemSort.getAllPotions(inventory);
+    if (weapons.isNotEmpty) {
+      displayAllWeapons(weapons);
+    }
+    if (potions.isNotEmpty) {
+      displayAllPotions(potions);
+    }
+  }
 
   static void displayAllWeapons(List<Weapon> weapons) {
     List<String> columnNames = [
@@ -16,6 +26,15 @@ class ItemDisplayer {
       "Crit multiplier"
     ];
     optimizedDisplay(columnNames, weapons);
+  }
+
+  static void displayAllPotions(List<Potion> potions) {
+    List<String> columnNames = [
+      "Nom de la potion",
+      "Niveau requis",
+      "Effet de la potion"
+    ];
+    optimizedDisplay(columnNames, potions);
   }
 
   static String optimizedCenterWord(int maxSize, String word) {
@@ -69,7 +88,9 @@ class ItemDisplayer {
       print(text_displayed);
       index = 0;
     }
-    print("-" * tableSize);
+    if (itemsInformations.isNotEmpty) {
+      print("-" * tableSize);
+    }
   }
 
   static List<String> gatherInfosFromAnItem(Item item) {
@@ -79,6 +100,10 @@ class ItemDisplayer {
       informations.add(item.levelRequirement.toString());
       informations.add(item.damage.toString());
       informations.add(item.critMultiplier.toString());
+    } else if (item is Potion) {
+      informations.add(item.name!);
+      informations.add(item.levelRequirement.toString());
+      informations.add(item.description);
     }
 
     return informations;
