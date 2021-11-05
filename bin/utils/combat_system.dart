@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import '../entite.dart';
+import '../items/potion.dart';
 import '../items/item.dart';
 import '../items/player_bound_items/inventory.dart';
 import '../items/weapons/weapon.dart';
@@ -12,6 +13,7 @@ import 'item_sorter.dart';
 class CombatSystem {
   Joueur _player;
   Entite _opponent;
+  bool _actionExecuted = false;
 
   CombatSystem(this._player, this._opponent) {
     print("Fight between " +
@@ -29,27 +31,26 @@ class CombatSystem {
 
   set opponent(Entite value) => this._opponent = value;
 
+  bool get actionExecuted => this._actionExecuted;
+
+  set actionExecuted(bool value) => this._actionExecuted = value;
+
   void selectAction() {
-    bool verif = false;
+    _actionExecuted = false;
     do {
       print("Choose an action");
       String? input = stdin.readLineSync()!.toLowerCase();
       if (input == "attack") {
         player.attack(opponent);
-        verif = true;
+        _actionExecuted = true;
       } else if (input == "inventory") {
         selectInventoryAction();
       } else if (input == "?") {
         print("Commandes disponibles:\n" + "- attack");
-      } else if (input == "inventaire") {
-        print("Voici votre inventaire");
-        ItemDisplayer.displayInventory(_player.inventory);
-        selectInventoryAction();
-        verif = true;
       } else {
         print("Mauvaise action, taper ? pour connaître toutes les commandes");
       }
-    } while (verif == false);
+    } while (_actionExecuted == false);
   }
 
   void selectInventoryAction() {
@@ -61,27 +62,44 @@ class CombatSystem {
       // Si utilisateur tape equip
       if (input!.contains("equip")) {
         print("Quel objet voulez-vous équiper");
+        List<Weapon> allWeapons = ItemSort.getAllWeapons(_player.inventory);
+        ItemDisplayer.displayAllWeapons(allWeapons);
         input = stdin.readLineSync()!.toLowerCase();
-        List<Item> searchItem = player.inventory.searchItem(input);
+        List<Weapon> searchItem = ItemSort.searchWeapon(input, allWeapons);
         // Si la liste a trouvé un ou des objets
         if (searchItem.isNotEmpty) {
           print("Lequel voulez-vous choisir");
+          ItemDisplayer.displayAllWeapons(searchItem);
           try {
-            ItemDisplayer.displayAllWeapons(searchItem as List<Weapon>);
-            try {
-              int? inputChoice = int.parse(stdin.readLineSync().toString());
-              _player.equipWeapon(searchItem[inputChoice]);
-              verif = true;
-            } catch (e) {
-              print("Erreur dans le choix");
-            }
-          } catch (E) {
-            print("Pas équipable");
+            int? inputChoice = int.parse(stdin.readLineSync().toString()) - 1;
+            _player.equipWeapon(searchItem[inputChoice]);
+            verif = true;
+          } catch (e) {
+            print("Erreur dans le choix");
           }
         } else {
           print("Pas d'objet portant ce nom");
         }
       } else if (input == "consume") {
+        print("Quelle potion voulez-vous boire?");
+        List<Potion> allPotions = ItemSort.getAllPotions(_player.inventory);
+        ItemDisplayer.displayAllPotions(allPotions);
+        input = stdin.readLineSync()!.toLowerCase();
+        if (allPotions.isNotEmpty) {
+          print("Lequel voulez-vous choisir");
+          List<Item> potionChosen = ItemSort.searchPotion(input, allPotions);
+          ItemDisplayer.displayAllPotions(potionChosen as List<Potion>);
+          try {
+            int? inputChoice = int.parse(stdin.readLineSync().toString()) - 1;
+            potionChosen.elementAt(inputChoice).consume(_player);
+            verif = true;
+            _actionExecuted = true;
+          } catch (e) {
+            print("Erreur dans le choix");
+          }
+        } else {
+          print("Pas d'objet portant ce nom");
+        }
       } else if (input == "?") {
         print("Commandes disponibles:\n" + "- equip");
       } else {

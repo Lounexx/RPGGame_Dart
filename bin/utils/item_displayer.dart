@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import '../items/consummables/potion.dart';
+import '../items/potion.dart';
 import '../items/item.dart';
 import '../items/player_bound_items/inventory.dart';
 import '../items/weapons/weapon.dart';

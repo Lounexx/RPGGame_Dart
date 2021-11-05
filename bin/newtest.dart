@@ -1,19 +1,14 @@
-import 'dart:io';
-
 import 'classes/classe.dart';
 import 'enemies/wolf.dart';
 import 'items/consummables/health_potion.dart';
-import 'items/consummables/potion.dart';
-import 'items/item.dart';
+import 'items/potion.dart';
 import 'items/weapons/hammer.dart';
-import 'items/weapons/weapon.dart';
 import 'joueur.dart';
 import 'items/weapons/sword.dart';
 import 'utils/combat_system.dart';
-import 'utils/item_displayer.dart';
 
 void main(List<String> arguments) {
-  Joueur joueur = Joueur.start("davy", Classe.Warrior());
+  Joueur joueur = Joueur.start("uwu", Classe.Warrior());
   joueur.inventory.addItem(HealthPotion.exilir());
   joueur.inventory.addItem(HealthPotion.standard());
   joueur.inventory.addItem(Hammer(10, 1.2, 10));

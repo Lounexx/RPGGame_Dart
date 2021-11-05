@@ -1,6 +1,7 @@
-import '../item.dart';
+import 'consummable.dart';
+import 'item.dart';
 
-abstract class Potion extends Item {
+abstract class Potion extends Item implements Consummable {
   late String _description;
 
   Potion(int levelRequirement) : super(levelRequirement);

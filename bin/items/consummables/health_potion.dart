@@ -1,7 +1,7 @@
 import '../../entite.dart';
 import '../consummable.dart';
 import '../item.dart';
-import 'potion.dart';
+import '../potion.dart';
 
 class HealthPotion extends Potion implements Consummable {
   int _healthRecovery;

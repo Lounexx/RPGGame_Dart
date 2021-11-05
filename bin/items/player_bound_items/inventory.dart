@@ -33,14 +33,4 @@ class Inventory {
       print("Inventaire plein");
     }
   }
-
-  List<Item> searchItem(String itemName) {
-    List<Item> items = List.empty(growable: true);
-    for (Item? item in _inventory) {
-      if (item != null && item.name!.toLowerCase() == itemName) {
-        items.add(item);
-      }
-    }
-    return items;
-  }
 }
