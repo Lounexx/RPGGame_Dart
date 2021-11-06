@@ -1,26 +1,26 @@
 import 'classes/classe.dart';
 import 'enemies/wolf.dart';
+import 'entite.dart';
 import 'items/consummables/health_potion.dart';
 import 'items/potion.dart';
 import 'items/weapons/hammer.dart';
 import 'joueur.dart';
 import 'items/weapons/sword.dart';
 import 'utils/combat_system.dart';
+import 'utils/randomizer.dart';
 
 void main(List<String> arguments) {
   Joueur joueur = Joueur.start("uwu", Classe.Warrior());
-  joueur.inventory.addItem(HealthPotion.exilir());
-  joueur.inventory.addItem(HealthPotion.standard());
-  joueur.inventory.addItem(Hammer(10, 1.2, 10));
-  joueur.inventory.addItem(HealthPotion.exilir());
-  joueur.inventory.addItem(HealthPotion.exilir());
-  joueur.inventory.addItem(Sword(100, 1.0, 1));
-  Wolf wolf = Wolf(3);
-  CombatSystem combat = CombatSystem(joueur, wolf);
-  combat.fight();
-  Wolf newWolf = Wolf(6);
-  combat.opponent = newWolf;
-  combat.fight();
+  joueur.equipWeapon(Sword(45, 1.2, 1));
+
+  List<Entite> wave = Randomizer.createEnemyWave(5);
+  for (Entite enemy in wave) {
+    CombatSystem combatSystem = CombatSystem(joueur, enemy);
+    combatSystem.fight();
+    if (!joueur.isAlive) {
+      break;
+    }
+  }
 }
 
 void giveXp(Joueur player, double xp) {

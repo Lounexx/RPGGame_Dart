@@ -18,8 +18,14 @@ class CombatSystem {
   CombatSystem(this._player, this._opponent) {
     print("Fight between " +
         _player.name +
+        "(" +
+        _player.level.toString() +
+        ")" +
         " and " +
         _opponent.name +
+        "(" +
+        _opponent.level.toString() +
+        ")" +
         " has started");
   }
 
@@ -90,10 +96,14 @@ class CombatSystem {
           List<Item> potionChosen = ItemSort.searchPotion(input, allPotions);
           ItemDisplayer.displayAllPotions(potionChosen as List<Potion>);
           try {
+            int listSize = potionChosen.length;
             int? inputChoice = int.parse(stdin.readLineSync().toString()) - 1;
             potionChosen.elementAt(inputChoice).consume(_player);
-            verif = true;
-            _actionExecuted = true;
+            // Si la potion a été retirée donc bue
+            if (potionChosen.length == listSize - 1) {
+              verif = true;
+              _actionExecuted = true;
+            }
           } catch (e) {
             print("Erreur dans le choix");
           }
@@ -101,7 +111,7 @@ class CombatSystem {
           print("Pas d'objet portant ce nom");
         }
       } else if (input == "?") {
-        print("Commandes disponibles:\n" + "- equip");
+        print("Commandes disponibles:\n" "- equip");
       } else {
         print("Mauvaise action, taper ? pour connaître toutes les commandes");
       }
@@ -138,7 +148,9 @@ class CombatSystem {
   void fight() {
     while (_player.isAlive && _opponent.isAlive) {
       selectAction();
-      _opponent.attack(_player);
+      if (_opponent.isAlive) {
+        _opponent.attack(_player);
+      }
     }
     if (!_opponent.isAlive) {
       Inventory droppedItems =

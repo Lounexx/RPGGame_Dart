@@ -1,12 +1,16 @@
+import 'dart:mirrors';
+
 import 'items/weapons/weapon.dart';
 import 'utils/equip_conditioner.dart';
 import 'utils/loot_table.dart';
+import 'utils/randomizer.dart';
 
 abstract class Entite {
   String _name;
   int _health;
   int _maxHealth;
   int _damage;
+  double _critChance = 0.75;
   Weapon? weapon;
   int _level;
   bool _isAlive;
@@ -47,8 +51,21 @@ abstract class Entite {
 
   set setLootTable(lootTable) => this.lootTable = lootTable;
 
+  double get critChance => this._critChance;
+
+  set critChance(value) => this._critChance = value;
+
   void attack(Entite entite) {
-    entite.health = entite.health - weapon!.damage;
+    int damageDone;
+    if (Randomizer.isEventTriggered(entite._critChance)) {
+      print("Coup critique!");
+      double damage = (weapon!.damage * weapon!.critMultiplier);
+      entite.health = entite.health - damage.round();
+      damageDone = damage.round();
+    } else {
+      entite.health = entite.health - weapon!.damage;
+      damageDone = weapon!.damage;
+    }
     if (entite.health < 0) {
       entite.health = 0;
       entite._isAlive = false;
@@ -58,16 +75,10 @@ abstract class Entite {
         " hits " +
         entite.name +
         " for " +
-        weapon!.damage.toString() +
+        damageDone.toString() +
         " with " +
         weapon!.name.toString() +
         " damage leaving him at " +
         entite.health.toString());
-  }
-
-  void equipWeapon(Weapon weapon) {
-    EquipConditioner.isLevelRequirementCorrect(weapon, this) == true
-        ? this.weapon = weapon
-        : print("Niveau du joueur trop bas");
   }
 }

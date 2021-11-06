@@ -1,9 +1,11 @@
 import '../../entite.dart';
+import '../../joueur.dart';
+import '../../utils/equip_conditioner.dart';
 import '../consummable.dart';
 import '../item.dart';
 import '../potion.dart';
 
-class HealthPotion extends Potion implements Consummable {
+class HealthPotion extends Potion {
   int _healthRecovery;
 
   HealthPotion.standard([this._healthRecovery = 10]) : super(1) {
@@ -22,10 +24,15 @@ class HealthPotion extends Potion implements Consummable {
 
   @override
   void consume(Entite entite) {
-    entite.health = entite.health + _healthRecovery;
-    print(entite.name +
-        " a bu " +
-        super.name! +
-        " lui redonnant $healthRecovery HP!");
+    if (EquipConditioner.isLevelRequirementCorrect(this, entite)) {
+      super.consume(entite);
+      entite.health = entite.health + _healthRecovery;
+      print(entite.name +
+          " a bu " +
+          super.name! +
+          " lui redonnant $healthRecovery HP!");
+    } else {
+      print("Niveau du joueur trop bas pour consommer la potion");
+    }
   }
 }

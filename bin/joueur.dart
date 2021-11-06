@@ -7,14 +7,16 @@ import 'entite.dart';
 import 'items/item.dart';
 import 'items/player_bound_items/inventory.dart';
 import 'items/weapons/fists.dart';
+import 'items/weapons/weapon.dart';
 import 'utils/drop_item_system.dart';
+import 'utils/equip_conditioner.dart';
 import 'utils/item_displayer.dart';
 
 class Joueur extends Entite {
   Classe _classe;
   double _xp;
   double _xpCap;
-  Inventory? _inventory;
+  late Inventory _inventory;
 
   Joueur.start(
     String name,
@@ -45,7 +47,7 @@ class Joueur extends Entite {
 
   set xpCap(double value) => this._xpCap = value;
 
-  Inventory get inventory => this._inventory!;
+  Inventory get inventory => this._inventory;
 
   set inventory(Inventory value) => this._inventory = value;
 
@@ -54,6 +56,20 @@ class Joueur extends Entite {
     super.attack(entite);
     if (entite.isAlive == false) {
       giveEXP(entite);
+    }
+  }
+
+  void equipWeapon(Weapon weapon) {
+    if (EquipConditioner.isLevelRequirementCorrect(weapon, this)) {
+      if (super.weapon is! Fists) {
+        _inventory.addItem(super.weapon!);
+        super.weapon = weapon;
+        _inventory.removeItem(super.weapon!);
+      } else {
+        super.weapon = weapon;
+      }
+    } else {
+      print("Niveau du joueur trop bas");
     }
   }
 

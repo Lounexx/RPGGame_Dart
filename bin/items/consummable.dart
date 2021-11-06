@@ -1,5 +1,9 @@
 import '../entite.dart';
+import '../joueur.dart';
+import 'item.dart';
 
-class Consummable {
+class Consummable extends Item {
+  Consummable(int levelRequirement) : super(levelRequirement);
+
   void consume(Entite entite) {}
 }

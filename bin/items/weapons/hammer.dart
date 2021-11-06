@@ -5,4 +5,7 @@ class Hammer extends Weapon {
       : super(damage, critMultiplier, levelRequirement) {
     super.name = "Marteau";
   }
+  Hammer.UniqueHammer() : super(80, 2.0, 1) {
+    super.name = "Marteau De Jérémy";
+  }
 }

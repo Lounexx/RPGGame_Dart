@@ -14,6 +14,20 @@ class LootTable {
     _addItemToLootTable(Hammer(100, 1.75, 1), 0.1);
     _addItemToLootTable(HealthPotion.standard(), 0.4);
   }
+  LootTable.Skeleton() {
+    _addItemToLootTable(Sword(35, 1.5, 7), 0.3);
+    _addItemToLootTable(Hammer(65, 1.2, 10), 0.2);
+    _addItemToLootTable(HealthPotion.standard(), 0.4);
+    _addItemToLootTable(HealthPotion.exilir(), 0.3);
+  }
+
+  LootTable.SkeletonJeremy() {
+    _addItemToLootTable(Sword(35, 1.5, 7), 0.3);
+    _addItemToLootTable(Hammer(65, 1.2, 10), 0.2);
+    _addItemToLootTable(HealthPotion.standard(), 0.4);
+    _addItemToLootTable(HealthPotion.exilir(), 0.3);
+    _addItemToLootTable(Hammer.UniqueHammer(), 0.05);
+  }
 
   List<Item> get items => this._items;
 

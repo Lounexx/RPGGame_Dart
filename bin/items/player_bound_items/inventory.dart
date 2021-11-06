@@ -33,4 +33,13 @@ class Inventory {
       print("Inventaire plein");
     }
   }
+
+  void removeItem(Item itemToRemove) {
+    for (Item? item in _inventory) {
+      if (itemToRemove == item) {
+        int index = _inventory.indexOf(item);
+        _inventory[index] = null;
+      }
+    }
+  }
 }
