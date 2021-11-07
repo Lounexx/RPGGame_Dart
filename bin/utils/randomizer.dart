@@ -21,7 +21,6 @@ class Randomizer {
     Random random = Random();
     for (int i = 0; i < waveSize; i++) {
       Entite randomizedMonster = enemyTable[random.nextInt(2)];
-      print(randomizedMonster.name);
       int randomizedLevel = 1 + random.nextInt(10);
       if (randomizedMonster is Wolf) {
         wave.add(Wolf(randomizedLevel));

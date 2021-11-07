@@ -15,19 +15,7 @@ class CombatSystem {
   Entite _opponent;
   bool _actionExecuted = false;
 
-  CombatSystem(this._player, this._opponent) {
-    print("Fight between " +
-        _player.name +
-        "(" +
-        _player.level.toString() +
-        ")" +
-        " and " +
-        _opponent.name +
-        "(" +
-        _opponent.level.toString() +
-        ")" +
-        " has started");
-  }
+  CombatSystem(this._player, this._opponent) {}
 
   Joueur get player => this._player;
 
@@ -50,7 +38,11 @@ class CombatSystem {
         player.attack(opponent);
         _actionExecuted = true;
       } else if (input == "inventory") {
-        selectInventoryAction();
+        if (!_player.inventory.isEmpty()) {
+          selectInventoryAction();
+        } else {
+          print("Votre inventaire est vide");
+        }
       } else if (input == "?") {
         print("Commandes disponibles:\n" + "- attack");
       } else {
@@ -110,6 +102,8 @@ class CombatSystem {
         } else {
           print("Pas d'objet portant ce nom");
         }
+      } else if (input == "exit") {
+        verif = true;
       } else if (input == "?") {
         print("Commandes disponibles:\n" "- equip");
       } else {
@@ -146,6 +140,15 @@ class CombatSystem {
   }
 
   void fight() {
+    print("Combat contre " +
+        _player.name +
+        " niv" +
+        _player.level.toString() +
+        " et " +
+        _opponent.name +
+        " niv" +
+        _opponent.level.toString() +
+        " a commancé ");
     while (_player.isAlive && _opponent.isAlive) {
       selectAction();
       if (_opponent.isAlive) {
