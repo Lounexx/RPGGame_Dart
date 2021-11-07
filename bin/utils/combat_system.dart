@@ -15,19 +15,7 @@ class CombatSystem {
   Entite _opponent;
   bool _actionExecuted = false;
 
-  CombatSystem(this._player, this._opponent) {
-    print("Fight between " +
-        _player.name +
-        "(" +
-        _player.level.toString() +
-        ")" +
-        " and " +
-        _opponent.name +
-        "(" +
-        _opponent.level.toString() +
-        ")" +
-        " has started");
-  }
+  CombatSystem(this._player, this._opponent) {}
 
   Joueur get player => this._player;
 
@@ -146,6 +134,17 @@ class CombatSystem {
   }
 
   void fight() {
+    print("Fight between " +
+        _player.name +
+        "(" +
+        _player.level.toString() +
+        ")" +
+        " and " +
+        _opponent.name +
+        "(" +
+        _opponent.level.toString() +
+        ")" +
+        " has started");
     while (_player.isAlive && _opponent.isAlive) {
       selectAction();
       if (_opponent.isAlive) {
