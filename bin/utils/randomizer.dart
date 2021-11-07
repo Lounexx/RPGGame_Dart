@@ -20,8 +20,8 @@ class Randomizer {
     List<Entite> wave = List.empty(growable: true);
     Random random = Random();
     for (int i = 0; i < waveSize; i++) {
-      Entite randomizedMonster = enemyTable[random.nextInt(1)];
-      int randomizedLevel = random.nextInt(10);
+      Entite randomizedMonster = enemyTable[random.nextInt(2)];
+      int randomizedLevel = 1 + random.nextInt(10);
       if (randomizedMonster is Wolf) {
         wave.add(Wolf(randomizedLevel));
       } else {

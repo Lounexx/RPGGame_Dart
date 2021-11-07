@@ -42,4 +42,15 @@ class Inventory {
       }
     }
   }
+
+  bool isEmpty() {
+    bool verif = true;
+    for (Item? item in _inventory) {
+      if (item != null) {
+        verif = false;
+        break;
+      }
+    }
+    return verif;
+  }
 }
