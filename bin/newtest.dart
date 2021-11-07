@@ -18,6 +18,7 @@ void main(List<String> arguments) {
     CombatSystem combatSystem = CombatSystem(joueur, enemy);
     combatSystem.fight();
     if (!joueur.isAlive) {
+      print("GAME OVER! Vous êtes mort :D");
       break;
     }
   }
