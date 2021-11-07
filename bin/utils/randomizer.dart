@@ -2,7 +2,8 @@ import 'dart:math';
 
 import '../enemies/skeleton.dart';
 import '../enemies/wolf.dart';
-import '../entite.dart';
+import '../entities/entite.dart';
+import '../items/weapons/fireable_weapon.dart';
 
 class Randomizer {
   static bool isEventTriggered(double chance) {
@@ -26,6 +27,10 @@ class Randomizer {
         wave.add(Wolf(randomizedLevel));
       } else {
         wave.add(Skeleton(randomizedLevel));
+      }
+      double randomLegendary = random.nextDouble();
+      if (randomLegendary > 0 && randomLegendary <= 0.15) {
+        wave.add(Skeleton.Jeremy(randomizedLevel + 5));
       }
     }
     return wave;

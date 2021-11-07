@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import '../entite.dart';
-import '../joueur.dart';
+import '../entities/entite.dart';
+import '../entities/joueur.dart';
 import '../utils/equip_conditioner.dart';
 import 'consummable.dart';
 import 'item.dart';

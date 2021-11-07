@@ -1,11 +1,11 @@
 import 'dart:io';
 
-import '../entite.dart';
+import '../entities/entite.dart';
+import '../entities/joueur.dart';
 import '../items/potion.dart';
 import '../items/item.dart';
 import '../items/player_bound_items/inventory.dart';
 import '../items/weapons/weapon.dart';
-import '../joueur.dart';
 import 'drop_item_system.dart';
 import 'item_displayer.dart';
 import 'item_sorter.dart';

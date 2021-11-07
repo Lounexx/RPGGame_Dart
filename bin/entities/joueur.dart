@@ -2,15 +2,14 @@
 
 import 'dart:math';
 
-import 'classes/classe.dart';
+import '../classes/classe.dart';
+import '../items/consummables/health_potion.dart';
+import '../items/player_bound_items/inventory.dart';
+import '../items/weapons/bow.dart';
+import '../items/weapons/fists.dart';
+import '../items/weapons/weapon.dart';
+import '../utils/equip_conditioner.dart';
 import 'entite.dart';
-import 'items/item.dart';
-import 'items/player_bound_items/inventory.dart';
-import 'items/weapons/fists.dart';
-import 'items/weapons/weapon.dart';
-import 'utils/drop_item_system.dart';
-import 'utils/equip_conditioner.dart';
-import 'utils/item_displayer.dart';
 
 class Joueur extends Entite {
   Classe _classe;
@@ -31,8 +30,11 @@ class Joueur extends Entite {
     super.maxHealth = super.health + _classe.stamina;
     super.health = super.maxHealth;
     super.damage = damage + _classe.strength;
-    super.weapon = Fists(super.damage);
+    super.weapon = Bow.standard();
     this._inventory = Inventory.player();
+    inventory.addItem(HealthPotion.standard());
+    inventory.addItem(HealthPotion.standard());
+    inventory.addItem(HealthPotion.standard());
   }
 
   Classe get classe => this._classe;

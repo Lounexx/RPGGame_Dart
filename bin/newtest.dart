@@ -1,18 +1,12 @@
 import 'classes/classe.dart';
-import 'enemies/wolf.dart';
-import 'entite.dart';
-import 'items/consummables/health_potion.dart';
-import 'items/potion.dart';
-import 'items/weapons/hammer.dart';
-import 'joueur.dart';
-import 'items/weapons/sword.dart';
+import 'entities/entite.dart';
+import 'entities/joueur.dart';
 import 'utils/combat_system.dart';
 import 'utils/randomizer.dart';
 import 'utils/tutorial_texts.dart';
 
 void main(List<String> arguments) {
   Joueur joueur = Joueur.start("uwu", Classe.Warrior());
-  joueur.equipWeapon(Sword(45, 1.2, 1));
   TutorialText.initGameText();
   List<Entite> wave = Randomizer.createEnemyWave(5);
   for (Entite enemy in wave) {
@@ -22,6 +16,9 @@ void main(List<String> arguments) {
       print("GAME OVER! Vous êtes mort :D");
       break;
     }
+  }
+  if (joueur.isAlive) {
+    print("Vous avez vaincu la vague de monstres!");
   }
 }
 

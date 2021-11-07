@@ -1,5 +1,4 @@
-import '../../entite.dart';
-import '../../joueur.dart';
+import '../../entities/entite.dart';
 import '../../utils/equip_conditioner.dart';
 import '../consummable.dart';
 import '../item.dart';
@@ -8,12 +7,12 @@ import '../potion.dart';
 class HealthPotion extends Potion {
   int _healthRecovery;
 
-  HealthPotion.standard([this._healthRecovery = 10]) : super(1) {
+  HealthPotion.standard([this._healthRecovery = 30]) : super(1) {
     super.name = "Potion de soin";
     super.description = "Potion de soin qui redonne $healthRecovery HP";
   }
 
-  HealthPotion.exilir([this._healthRecovery = 25]) : super(10) {
+  HealthPotion.exilir([this._healthRecovery = 50]) : super(10) {
     super.name = "Elixir de soin";
     super.description = "Potion de soin qui redonne $healthRecovery HP";
   }

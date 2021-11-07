@@ -1,4 +1,4 @@
-import '../entite.dart';
+import '../entities/entite.dart';
 import '../items/weapons/fists.dart';
 import '../items/weapons/hammer.dart';
 import '../utils/loot_table.dart';

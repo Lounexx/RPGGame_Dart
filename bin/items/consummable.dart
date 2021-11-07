@@ -1,5 +1,4 @@
-import '../entite.dart';
-import '../joueur.dart';
+import '../entities/entite.dart';
 import 'item.dart';
 
 class Consummable extends Item {

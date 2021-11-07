@@ -28,6 +28,12 @@ class LootTable {
     _addItemToLootTable(HealthPotion.exilir(), 0.3);
     _addItemToLootTable(Hammer.UniqueHammer(), 0.05);
   }
+  LootTable.Dog() {
+    _addItemToLootTable(Sword(35, 1.5, 7), 0.3);
+    _addItemToLootTable(HealthPotion.standard(), 0.4);
+    _addItemToLootTable(HealthPotion.exilir(), 0.3);
+    _addItemToLootTable(Hammer.UniqueHammer(), 0.05);
+  }
 
   List<Item> get items => this._items;
 

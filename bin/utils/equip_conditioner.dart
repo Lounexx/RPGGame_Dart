@@ -1,4 +1,4 @@
-import '../entite.dart';
+import '../entities/entite.dart';
 import '../items/item.dart';
 
 class EquipConditioner {

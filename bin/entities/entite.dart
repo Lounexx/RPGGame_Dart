@@ -1,9 +1,10 @@
 import 'dart:mirrors';
 
-import 'items/weapons/weapon.dart';
-import 'utils/equip_conditioner.dart';
-import 'utils/loot_table.dart';
-import 'utils/randomizer.dart';
+import '../items/weapons/fireable_weapon.dart';
+import '../items/weapons/weapon.dart';
+import '../utils/damage_calculator.dart';
+import '../utils/loot_table.dart';
+import '../utils/randomizer.dart';
 
 abstract class Entite {
   String _name;
@@ -57,16 +58,21 @@ abstract class Entite {
 
   void attack(Entite entite) {
     int damageDone;
-    if (Randomizer.isEventTriggered(entite._critChance)) {
-      print("Coup critique!");
-      double damage = (weapon!.damage * weapon!.critMultiplier);
-      entite.health = entite.health - damage.round();
-      damageDone = damage.round();
+    if (weapon is FireableWeapon) {
+      FireableWeapon fireableWeapon = weapon as FireableWeapon;
+      if (Randomizer.isEventTriggered(fireableWeapon.getHitChance)) {
+        damageDone = DamageCalculator.damageDone(this, weapon!);
+      } else {
+        print(this.name + " a raté sa cible!");
+        damageDone = 0;
+      }
     } else {
-      entite.health = entite.health - weapon!.damage;
-      damageDone = weapon!.damage;
+      damageDone = DamageCalculator.damageDone(this, this.weapon!);
     }
-    if (entite.health < 0) {
+
+    entite.health = entite.health - damageDone;
+
+    if (entite.health <= 0) {
       entite.health = 0;
       entite._isAlive = false;
     }
